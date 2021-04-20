@@ -7,28 +7,17 @@ class CountdownTimer{
         this.timerInit();
     }
 
-    getDays() {
-        const days = Math.floor(this.delta / (1000 * 60 * 60 * 24));
-        return transformValues(days);
+    getTime() {
+        const days = transformValues(Math.floor(this.delta / (1000 * 60 * 60 * 24)));
+        const hours = transformValues(Math.floor((this.delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+        const mins = transformValues(Math.floor((this.delta % (1000 * 60 * 60)) / (1000 * 60)));
+        const secs = transformValues(Math.floor((this.delta % (1000 * 60)) / 1000));
+        
+        return `${days}:${hours}:${mins}:${secs}`;
     }
 
-    getHours() {
-        const hours = Math.floor((this.delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        return transformValues(hours);
-    }
-
-    getMinutes() {
-        const mins = Math.floor((this.delta % (1000 * 60 * 60)) / (1000 * 60));
-        return transformValues(mins);
-    }
-
-    getSeconds() {
-        const secs = Math.floor((this.delta % (1000 * 60)) / 1000);
-        return transformValues(secs);
-    }
-
-    renderTimeMarkup() {
-        this.timerRef.textContent = `${this.getDays()} ${this.getHours()} ${this.getMinutes()} ${this.getSeconds()}`;
+       renderTimeMarkup() {
+        this.timerRef.textContent = `${this.getTime()}`;
         this.timerRef.classList.add('time');
     }
 
